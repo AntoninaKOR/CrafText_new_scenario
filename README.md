@@ -78,14 +78,27 @@ seed = jax.random.PRNGKey(0)
 env_params = env.default_params
 
 obs, state = wrapper.reset(seed, env_params)
-print("Initial Observation:", obs)
-print("Initial State:", state)
 
 action = jnp.array(0, dtype=jnp.int32)
 obs, state, reward, done, info = wrapper.step(seed, state, action, env_params)
 
+# Get the instruction embedding
+instruction_emb = state.instruction
+
+# Get the natural language instruction
+dx = state.idx
+instruction = wrapper.scenario_handler.all_scenario.instructions_list[idx]
 ```
 
+## CrafText task type and configs 
+| Task Type                                       | Easy | Medium | Hard |
+| ----------------------------------------------- | :--: | :----: | :--: |
+| `build`                                         |      |   ✅   |  ✅  |
+| `conditional_achievements`                      |  ✅   |   ✅   |      |
+| `conditional_placing`                           |      |   ✅   |  ✅  |
+| `localization_placing`                          |      |   ✅   |  ✅  |
+
+All possible configs you can find in `craftext/dataset/config`
 
 
 ## Citation
