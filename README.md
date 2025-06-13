@@ -1,7 +1,7 @@
 
 # CrafText Benchmark: Advancing Instruction Following in Complex Multimodal Open-Ended World
 
-**CrafText** is a goal-conditioned extension of the [Craftax environment](https://github.com/MichaelTMatthews/Craftax), designed as a benchmark for **multimodal reinforcement learning**. It enables agents to follow **natural language instructions** grounded in rich, visual environments inspired by Minecraft, combining vision and language to guide complex action sequences.
+**CrafText** is a goal-conditioned extension of the [Craftax environment](https://github.com/MichaelTMatthews/Craftax), designed as a benchmark for **multimodal reinforcement learning**. It enables agents to follow natural language instructions grounded in rich, visual environments inspired by Minecraft, combining vision and language to guide complex action sequences.
 
 ## ✨ Key Features
 
