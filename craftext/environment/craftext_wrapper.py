@@ -122,6 +122,7 @@ class InstructionWrapper(Wrapper):
         #initial_instruction 
        
         self.scenario_arguments = self.scenario_handler.scenario_data_jax.arguments
+        self.encoded_instruction = self.scenario_handler.initial_instruction
         
         self.batched_ts = TargetState.stack(self.scenario_arguments)
 
