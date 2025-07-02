@@ -14,7 +14,8 @@ medium = {
         **build_square_instructions.medium,
         **localization_place_instructions.medium,
         **conditional_place_instructions.medium,
-        **build_star_instructions.medium
+        **conditional_achievements.easy,
+
 }
 
 
@@ -22,7 +23,6 @@ hard = {
         **build_line_instructions.hard, 
         **build_square_instructions.hard, 
         **localization_place_instructions.hard,
-        # **conditional_achievements.hard,
         **conditional_place_instructions.hard,
-        **build_star_instructions.hard
+        **build_star_instructions.medium
 }
