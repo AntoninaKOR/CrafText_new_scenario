@@ -206,6 +206,8 @@ class InstructionWrapper(Wrapper):
                     reward
                 )
         
+        reward = jax.lax.cond(instruction_done, lambda _: reward + 1, lambda _: reward, operand=None)
+        
         # Combine Game episode ends and complete instruction
         done = instruction_done | done
    
