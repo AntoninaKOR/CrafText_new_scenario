@@ -64,7 +64,7 @@ env: CraftaxClassicPixelsEnv = make_craftax_env_from_name(
 # Step 2: Wrap with CrafText
 wrapper = InstructionWrapper(
     env=env,
-    config_name='simple',
+    config_name='easy_train',
     scenario_handler_class=ScenariousManager,
     encode_model_class=DistilBertEncode,
     encode_form=EncodeForm.EMBEDDING
@@ -83,7 +83,7 @@ obs, state, reward, done, info = wrapper.step(seed, state, action, env_params)
 instruction_emb = state.instruction
 
 # Get the natural language instruction
-dx = state.idx
+idx = state.idx
 instruction = wrapper.scenario_handler.all_scenario.instructions_list[idx]
 ```
 
