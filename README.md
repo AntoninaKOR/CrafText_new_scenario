@@ -33,7 +33,6 @@
    ```bash
    conda create --name craftext python=3.9
    conda activate craftext
-   pip install -r requirements.txt
    ```
 
 3. Navigate to the repository and install the dataset:
