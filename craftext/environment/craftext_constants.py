@@ -26,6 +26,9 @@ class Scenarios:
     TIME_CONSTRAINED_PLACEMENT = 6
     EXPLORE = 7
     
+    #add new 
+    EXPLORE_WATER = 8
+    
 @struct.dataclass    
 class MediumInventoryItems:
     WOOD = 0
