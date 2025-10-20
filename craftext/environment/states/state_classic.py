@@ -2,6 +2,7 @@ from typing import List, Tuple, Optional, Union
 import jax.numpy as jnp
 from flax import struct
 import jax
+from craftext_constants import BlockType
 
 @struct.dataclass
 class PlayerVariables:
@@ -56,6 +57,7 @@ class PlayerInventory:
 @struct.dataclass
 class GameMap:
     game_map: jax.Array
+    water_sources: list
 
 
 @struct.dataclass
@@ -116,7 +118,8 @@ class PlayerState:
         )
 
         game_map = GameMap(
-            game_map=jnp.array(state.map) if hasattr(state, 'map') else None
+            game_map=jnp.array(state.map) if hasattr(state, 'map') else None,
+            water_sources=find_water(state.map[0])
         )
 
         return cls(
@@ -126,6 +129,24 @@ class PlayerState:
             map=game_map,
             action=action
         )
+
+def find_water(map, connectivity=8):
+    """
+    finding connectivity components of mask using 8 or 4 связность
+    """
+    mask = (map == BlockType.WATER)
+
+    if connectivity == 8:
+        structure = jnp.array([[1,1,1],
+                            [1,1,1],
+                            [1,1,1]], dtype=bool)
+    else:
+        structure = jnp.array([[0,1,0],
+                            [1,1,1],
+                            [0,1,0]], dtype=bool)
+
+    water_masks, n = ndi.label(mask, structure=structure)
+    return water_masks
 
 @struct.dataclass
 class GameDataClassic:
