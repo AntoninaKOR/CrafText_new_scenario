@@ -1,3 +1,10 @@
 __pycache__
 CrafText.egg-info
 .venv
+.vscode
+venv
+hub
+models--distilbert-base-uncased
+runs
+xet
+CrafText_baselines
