@@ -41,6 +41,11 @@ class LocalizaPlacingState:
     target_object_name: int = -1
     side: int = -1
     distance: int = 5
+    
+#new
+@struct.dataclass 
+class ExploringWaterState:
+    object_to_find: int = 3
 
 @struct.dataclass
 class Achievements:
@@ -62,6 +67,7 @@ class UnifiedPatternState:
     size: int = 3
     radius: int = 3
 
+
 @struct.dataclass
 class TargetState:
     achievements: Achievements = struct.field(default_factory=Achievements)
@@ -72,6 +78,7 @@ class TargetState:
     Localization_placing: LocalizaPlacingState = struct.field(default_factory=LocalizaPlacingState)
     time_placement: TimeCosntrainedPlacmentState = struct.field(default_factory=TimeCosntrainedPlacmentState)
     unified_pattern_state: UnifiedPatternState = struct.field(default_factory=UnifiedPatternState)
+    exploring_water: ExploringWaterState = struct.field(default_factory=ExploringWaterState)
 
     @classmethod
     def stack(cls, lst: list['TargetState']) -> 'TargetState':
