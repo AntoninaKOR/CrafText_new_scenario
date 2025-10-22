@@ -4,6 +4,9 @@ from flax import struct
 import jax
 from craftext_constants import BlockType
 
+MAX_RADIUS = 5
+REGION_SIZE = 2 * MAX_RADIUS + 1
+
 @struct.dataclass
 class PlayerVariables:
     player_position: jax.Array 
@@ -72,6 +75,7 @@ class PlayerInventory:
 class GameMap:
     game_map: jax.Array 
     water_sources: list
+    is_visited_water: list
 
 
 @struct.dataclass
@@ -148,9 +152,9 @@ class PlayerState:
             )
 
         game_map = GameMap(
-            game_map=jnp.array(state.map[0]) if hasattr(state, 'map') else None,
-            water_sources=find_water(state.map[0])
-            
+            game_map=jnp.array(state.map) if hasattr(state, 'map') else None,
+            water_sources=find_water(state.map.game_map) if hasattr(state, 'map') else None,
+            is_visited_water=update_is_visited_water(state) if hasattr(state, 'map') else None
         )
 
         return cls(
@@ -180,6 +184,26 @@ def find_water(map, connectivity=8):
     water_masks, n = ndi.label(mask, structure=structure)
     return water_masks
 
+def update_is_visited_water(state):
+    x, y = state.variables.player_position
+    padded_map = jnp.pad(
+        state.map.game_map,
+        ((MAX_RADIUS, MAX_RADIUS), (MAX_RADIUS, MAX_RADIUS)),
+        constant_values=-1  # any out-of-bounds marker
+    )  # shape [REGION_SIZE, REGION_SIZE]
+
+    region = lax.dynamic_slice(
+        padded_map,
+        (x, y),
+        (REGION_SIZE, REGION_SIZE)
+    )  
+    visible_water_mask = region & (state.map.game_map==3)
+    for i, mask in enumerate(state.map.water_sources):
+        if jnp.any(mask & visible_water_mask):
+            res = state.map.is_visited_water.copy()
+            res[i]=1
+            return res
+            
 @struct.dataclass
 class GameData:
     states: list[PlayerState]
