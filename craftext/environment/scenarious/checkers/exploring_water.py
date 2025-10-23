@@ -13,7 +13,7 @@ from functools import partial
 
 
 
-def cheker_water(game_data: Union[GameDataClassic, GameData], target_state: LocalizaPlacingState) -> jax.Array:
+def checker_water(game_data: Union[GameDataClassic, GameData], target_state: LocalizaPlacingState) -> jax.Array:
 
     return found_all(game_data=game_data)
 
@@ -27,4 +27,4 @@ def found_all(
     game_data: Union[GameDataClassic, GameData], 
     object_to_find=3,    
 ) -> jax.Array:
-    return jnp.all(jnp.array(game_data.states[0].map.is_visited_water))
+    return jnp.all(jnp.array(game_data.is_visited_water))
