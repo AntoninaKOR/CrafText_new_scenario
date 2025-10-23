@@ -31,7 +31,7 @@ from craftext.environment.scenarious.checkers.relevant import cheker_localizatio
 from craftext.environment.scenarious.checkers.target_state import TargetState
 
 #new
-from craftext.environment.scenarious.checkers.exploring_water import cheker_water
+from craftext.environment.scenarious.checkers.exploring_water import checker_water
 
 from craftext.environment.craftext_constants import Scenarios
 
@@ -81,7 +81,7 @@ def generic_check(
             5 — checker_star (building a star)
             6 — checker_time_placement (timed placement)
             7 — checker_acvievments (achievements again)
-            8 — cheker_water (find all water sources)
+            8 — checker_water (find all water sources)
 
     Returns
     -------
@@ -228,7 +228,7 @@ class InstructionWrapper(Wrapper):
 
         # Get arguments fot checker by instruction in dataset
         ts = self.batched_ts.select(env_state.idx)
-
+       
         instruction_done = generic_check(game_data_vector, ts, env_state.checker_id)
 
         # If EXPLORE mode - give craftax reward
