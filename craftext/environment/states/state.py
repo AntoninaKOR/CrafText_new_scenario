@@ -2,7 +2,7 @@ from typing import List
 import jax.numpy as jnp
 from flax import struct
 import jax
-from craftext_constants import BlockType
+#from craftext_constants import BlockType
 
 MAX_RADIUS = 5
 REGION_SIZE = 2 * MAX_RADIUS + 1
@@ -74,8 +74,6 @@ class PlayerInventory:
 @struct.dataclass
 class GameMap:
     game_map: jax.Array 
-    water_sources: list
-    is_visited_water: list
 
 
 @struct.dataclass
@@ -150,11 +148,9 @@ class PlayerState:
                 stone_sword=jnp.array(state.inventory.armour),
                 iron_sword=jnp.array(state.inventory.torches),
             )
-
+        
         game_map = GameMap(
-            game_map=jnp.array(state.map) if hasattr(state, 'map') else None,
-            water_sources=find_water(state.map.game_map) if hasattr(state, 'map') else None,
-            is_visited_water=update_is_visited_water(state) if hasattr(state, 'map') else None
+            game_map=jnp.array(state.map) if hasattr(state, 'map') else None
         )
 
         return cls(
@@ -170,7 +166,7 @@ def find_water(map, connectivity=8):
     """
     finding connectivity components of mask using 8 or 4 связность
     """
-    mask = (map == BlockType.WATER)
+    mask = (map == 3)
 
     if connectivity == 8:
         structure = jnp.array([[1,1,1],
@@ -198,19 +194,25 @@ def update_is_visited_water(state):
         (REGION_SIZE, REGION_SIZE)
     )  
     visible_water_mask = region & (state.map.game_map==3)
+    res = []
+    visible_water_mask = region & (state.map.game_map==3)
     for i, mask in enumerate(state.map.water_sources):
         if jnp.any(mask & visible_water_mask):
-            res = state.map.is_visited_water.copy()
-            res[i]=1
-            return res
+            res.append(1)
+        else:
+            res.append(0)
+    return res
             
 @struct.dataclass
 class GameData:
     states: list[PlayerState]
 
     @classmethod
-    def from_state(cls, previos_state: PlayerState, current_state: PlayerState, action):
+    def from_state(cls, previos_state, current_state, action):
         player_state_current = PlayerState.from_state(current_state, action)
         player_state_previos = PlayerState.from_state(previos_state, action)
-        return cls(states=[player_state_current, player_state_previos])
-    
+        water_sources = find_water(current_state.map) 
+        is_visited_water=update_is_visited_water(player_state_current)
+        return cls(states=[player_state_current, player_state_previos],
+                   water_sources=water_sources,
+                   is_visited_water=is_visited_water)
