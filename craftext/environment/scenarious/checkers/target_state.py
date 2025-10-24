@@ -67,6 +67,9 @@ class UnifiedPatternState:
     size: int = 3
     radius: int = 3
 
+@struct.dataclass
+class ToolsPlacingState:
+    block_type: int = BlockType.INVALID
 
 @struct.dataclass
 class TargetState:
@@ -78,7 +81,8 @@ class TargetState:
     Localization_placing: LocalizaPlacingState = struct.field(default_factory=LocalizaPlacingState)
     time_placement: TimeCosntrainedPlacmentState = struct.field(default_factory=TimeCosntrainedPlacmentState)
     unified_pattern_state: UnifiedPatternState = struct.field(default_factory=UnifiedPatternState)
-    exploring_water: ExploringWaterState = struct.field(default_factory=ExploringWaterState)
+    tools_placing: ToolsPlacingState = struct.field(default_factory=ToolsPlacingState)
+    #exploring_water: ExploringWaterState = struct.field(default_factory=ExploringWaterState)
 
     @classmethod
     def stack(cls, lst: list['TargetState']) -> 'TargetState':

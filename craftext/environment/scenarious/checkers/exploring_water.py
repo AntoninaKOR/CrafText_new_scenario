@@ -15,7 +15,8 @@ from functools import partial
 
 def checker_water(game_data: Union[GameDataClassic, GameData], target_state: LocalizaPlacingState) -> jax.Array:
 
-    return found_all(game_data=game_data)
+    #return found_all(game_data=game_data)
+    return False
 
 
 from functools import partial

@@ -31,7 +31,8 @@ from craftext.environment.scenarious.checkers.relevant import cheker_localizatio
 from craftext.environment.scenarious.checkers.target_state import TargetState
 
 #new
-from craftext.environment.scenarious.checkers.exploring_water import checker_water
+#from craftext.environment.scenarious.checkers.exploring_water import checker_water
+from craftext.environment.scenarious.checkers.tools_place import checker_tools
 
 from craftext.environment.craftext_constants import Scenarios
 
@@ -81,7 +82,7 @@ def generic_check(
             5 — checker_star (building a star)
             6 — checker_time_placement (timed placement)
             7 — checker_acvievments (achievements again)
-            8 — checker_water (find all water sources)
+            8 — checker_tools (place crafting table and furnace)
 
     Returns
     -------
@@ -112,7 +113,7 @@ def generic_check(
         return checker_time_placement(game_data, ts.time_placement)
     #new
     def d(ts: TargetState):
-        return checker_water(game_data, ts.exploring_water)
+        return checker_tools(game_data, ts.tools_placing)
 
     fns = (ca, cp, port, ilf, isf, icf, atp, ca, d)
 

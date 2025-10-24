@@ -239,8 +239,8 @@ def update_is_visited_water(state, water_sources, n):
 @struct.dataclass
 class GameDataClassic:
     states: list
-    water_sources: list
-    is_visited_water: list
+   # water_sources: list
+    #is_visited_water: list
 
     @classmethod
     def from_state(cls, previos_state, current_state, action):
@@ -249,6 +249,7 @@ class GameDataClassic:
         water_sources, n = find_water(current_state.map) 
         is_visited_water=update_is_visited_water(player_state_current, water_sources, n)
         return cls(states=[player_state_current, player_state_previos],
-                   water_sources=water_sources,
-                   is_visited_water=is_visited_water)
+                   #water_sources=[water_sources],
+                   #is_visited_water=[is_visited_water]
+                   )
     

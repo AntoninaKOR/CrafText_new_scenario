@@ -170,7 +170,7 @@ hard = {
             "Construct a four-sided figure using 7 furnaces on each side."
         ],
         "arguments": create_target_state(BlockType.FURNACE, size=7 ),
-        "str_check_lambda": "is_square_formed(gd, ix)))"
+        "str_check_lambda": "is_square_formed(gd, ix)"
     }
 }
 

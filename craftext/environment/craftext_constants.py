@@ -27,7 +27,8 @@ class Scenarios:
     EXPLORE = 7
     
     #add new 
-    EXPLORE_WATER = 8
+    #EXPLORE_WATER = 8
+    TOOLS_PLACE = 8
     
 @struct.dataclass    
 class MediumInventoryItems:

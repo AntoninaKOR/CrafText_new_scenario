@@ -260,6 +260,7 @@ class ScenariosNoLambda:
         # Change instructions to plans if necessary
         if self.use_plans:
             instructions_list = self._load_action_plans(instructions_list)
+        
         return instructions_list, indices_list, checkers_data_dict
     
 
