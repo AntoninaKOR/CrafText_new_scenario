@@ -220,7 +220,6 @@ def find_water(map, connectivity=8, max_iter=4096):
 
 def update_is_visited_water(state, water_sources, n):
     x, y = state.variables.player_position
-    print(state.map.game_map.shape)
     MAX_WATER_LABELS = 64 
     region = masked_region_map(state.map.game_map, x, y)
     visible_water_mask = (region == 3)
